@@ -176,9 +176,80 @@ tab_list.forEach((tab, i)=>{
 });
 
 // 3. 이벤트 슬라이드 구현하기
+// 1. 변수선언
+const sw = document.querySelector('.s_wrap');
+const e_lbtn = document.querySelector('#event i.fa-angle-left');
+const e_rbtn = document.querySelector('#event i.fa-angle-right');
+let cont = 0; // 초기값
 
-//
+let sn = document.querySelectorAll('.s_wrap figure');
+let s_total = sn.length; //슬라이드 개수
+console.log(s_total); //3이 나오는지 확인
 
+const fig = 100; // 슬라이드 1장의 너비
+sw.style.width = fig*s_total + '%'; // 300
+console.log(sw.style.width);
+
+// 좌측 버튼 클릭시 시간제거하고,  슬라이드 왼쪽으로 이동하기
+e_lbtn.addEventListener('click', () => {
+  clearInterval(Timer2);
+
+  if(cont > 0) { // 만약 cont값이 0보다 크면
+    mslide(cont-1);  // 1씩 감소하여 함수에 보내준다.
+  } else { // 그렇지 않으면
+    mslide(s_total - 1); // 마지막 값을을 함수에 넘겨서 마지막  슬라이드가 나오게함
+  }
+});
+
+// 우측 버튼 클릭시 시간제거하고, 슬라이드 오른쪽으로 이동하기
+e_rbtn.addEventListener('click', function() {
+  clearInterval(Timer2);
+
+  if(cont < s_total-1) {
+    mslide(cont+1);
+  } else {
+    mslide(0);
+  }  
+});
+
+// 좌, 우측 버튼에 마우스 아웃시 시간을 다시 재생
+e_lbtn.addEventListener('mouseleave', () => {
+  clearInterval(Timer2);
+  Timer2 = setInterval(function() {
+  if (cont < s_total-1) { //만약 cont가 2보다 작으면
+    mslide(cont+1); // 1을 더하여 mslide에 넘김
+  } else { // 그렇지 않으면
+    mslide(0); // 0을 넣어서 1번이 나오도록 mslide에 넘김
+  }
+},3000);
+});
+
+e_rbtn.addEventListener('mouseleave', () => {
+  clearInterval(Timer2);
+  Timer2 = setInterval(function() {
+  if (cont < s_total-1) { //만약 cont가 2보다 작으면
+    mslide(cont+1); // 1을 더하여 mslide에 넘김
+  } else { // 그렇지 않으면
+    mslide(0); // 0을 넣어서 1번이 나오도록 mslide에 넘김
+  }
+},3000);
+});
+
+// 매 시간마다 반복 호출하여 자동으로 움직이게 
+function mslide(n) {
+  sw.style.left = fig*-n+'%';
+  cont = n;
+  console.log(sw.style.left); // 검증하기 -0%, -100%, -200%, -300%
+}
+
+// 3chakek 0, 1, 2rkqtdmf mslide에 넘기기
+let Timer2 = setInterval(function() {
+  if (cont < s_total-1) { //만약 cont가 2보다 작으면
+    mslide(cont+1); // 1을 더하여 mslide에 넘김
+  } else { // 그렇지 않으면
+    mslide(0); // 0을 넣어서 1번이 나오도록 mslide에 넘김
+  }
+},3000);
 
 // 4. 윈도우 스크롤 값을 사용하여 top버튼 보이고/숨기기(common.js에 작성)
 
