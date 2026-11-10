@@ -6,6 +6,7 @@ const spans = document.querySelectorAll('.toggle span'); //라인
 const nav = document.querySelector('.gnb'); //메인메뉴
 let mnu = document.querySelectorAll('.gnb > ul > li > a'); //메인메뉴
 let i = 0;
+const t_btn = document.querySelector('.top_btn'); //탑버튼
 
 // 2. 클릭이벤트 (토글버튼)
 toggleBtn.addEventListener('click', function(){
@@ -68,5 +69,28 @@ mnu.forEach(function(item){
     if(icon){
       icon.classList.toggle('rotate');
     }
+  });
+});
+
+// 탑버튼
+window.addEventListener('scroll', ()=>{
+  console.log(window.scrollY);
+  let ws = window.scrollY;
+
+  if(ws>=1000){ //스크롤 좌표값이 1520이상일 경우
+    //탑버튼 나오게한다.
+    t_btn.style.display='block';
+
+  }else{//그렇지 않은 경우
+    //탑버튼 숨긴다.
+    t_btn.style.display='none';
+  }
+});
+
+//탑버튼 클릭시 상단으로 부드럽게 올라가게 하기
+t_btn.addEventListener('click', function(){
+  window.scrollTo({
+    top:0,
+    behavior:'smooth' //부드럽게 애니메이션 효과
   });
 });

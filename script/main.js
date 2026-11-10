@@ -170,7 +170,74 @@ tab_list.forEach((tab, i)=>{
 
 // 3. 이벤트 슬라이드 구현하기
 
-//
+const sw = document.querySelector('.s_wrap');
+const e_lbtn = document.querySelector('#event i.fa-angle-left');
+const e_rbtn = document.querySelector('#event i.fa-angle-right');
+
+let cont = 0;
+
+let sn = document.querySelectorAll('.s_wrap figure');
+let s_total = sn.length;
+
+const fig = 100;
+
+// 슬라이드 전체 너비
+sw.style.width = fig * s_total + '%';
+
+// 좌측 버튼 클릭
+e_lbtn.addEventListener('click', () => {
+  clearInterval(Timer2);
+
+  if (cont > 0) {
+    mslide(cont - 1);
+  } else {
+    mslide(s_total - 1);
+  }
+});
+
+// 우측 버튼 클릭
+e_rbtn.addEventListener('click', () => {
+  clearInterval(Timer2);
+
+  if (cont < s_total - 1) {
+    mslide(cont + 1);
+  } else {
+    mslide(0);
+  }
+});
+
+// 자동 슬라이드 함수 /*수정*/
+function autoSlide() { /*수정*/
+  clearInterval(Timer2); /*수정*/
+
+  Timer2 = setInterval(() => { /*수정*/
+    if (cont < s_total - 1) {
+      mslide(cont + 1);
+    } else {
+      mslide(0);
+    }
+  }, 3000);
+} /*수정*/
+
+// 좌우 버튼에서 마우스가 벗어나면 자동 재생
+e_lbtn.addEventListener('mouseleave', autoSlide); /*수정*/
+e_rbtn.addEventListener('mouseleave', autoSlide); /*수정*/
+
+// 슬라이드 이동 함수
+function mslide(n) {
+  sw.style.left = fig * -n + '%';
+  cont = n;
+  console.log(cont);
+}
+
+// 자동 실행
+let Timer2 = setInterval(() => { /*수정*/
+  if (cont < s_total - 1) {
+    mslide(cont + 1);
+  } else {
+    mslide(0);
+  }
+}, 3000);
 
 
 // 4. 윈도우 스크롤 값을 사용하여 top버튼 보이고/숨기기(common.js에 작성)

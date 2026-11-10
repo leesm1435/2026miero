@@ -242,7 +242,7 @@ function mslide(n) {
   console.log(sw.style.left); // 검증하기 -0%, -100%, -200%, -300%
 }
 
-// 3chakek 0, 1, 2rkqtdmf mslide에 넘기기
+// 3초 0, 1, 2rkqtdmf mslide에 넘기기
 let Timer2 = setInterval(function() {
   if (cont < s_total-1) { //만약 cont가 2보다 작으면
     mslide(cont+1); // 1을 더하여 mslide에 넘김
